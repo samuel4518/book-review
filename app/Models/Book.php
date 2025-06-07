@@ -21,14 +21,14 @@ class Book extends Model
         return $query->where('title', 'LIKE', '%' . $title . '%');
     }
 
-    public function scopeWithReviewsCount(Builder $query, $from = null, $to = null): Builder|QueryBuilderAdd
+    public function scopeWithReviewsCount(Builder $query, $from = null, $to = null): Builder|QueryBuilder
     {
         return $query->withCount([
             'reviews' => fn(Builder $q) => $this->dateRangeFilter($q, $from, $to)
         ]);
     }
 
-    public function scopeWithAvgRating(Builder $query, $from = null, $to = null): Builder|QueryBuilderAdd
+    public function scopeWithAvgRating(Builder $query, $from = null, $to = null): Builder|QueryBuilder
     {
         return $query->withAvg([
             'reviews' => fn(Builder $q) => $this->dateRangeFilter($q, $from, $to)
